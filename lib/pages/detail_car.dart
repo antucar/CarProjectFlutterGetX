@@ -1,4 +1,5 @@
 import 'package:carproject/getx/main_controller.dart';
+import 'package:carproject/pages/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,17 +22,82 @@ class _CarDetail extends State<CarDetail> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(() => Column(
+            Column(
               children: [
-                Text("Brand: ${_maincontroller.brand}"),
-                Text("Model: ${_maincontroller.model}"),
-                Text("Engine Capacity: ${_maincontroller.engineCapacity}"),
-                Text("Engine Type: ${_maincontroller.engineType}"),
-                Text("Horsepower: ${_maincontroller.power}"),
-                Text("Year: ${_maincontroller.year}"),
-                Image.network(_maincontroller.imageUrl.toString()),
+                Text("Correct Answer",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Text("${_maincontroller.brand} ${_maincontroller.model}",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10,),
+                Text("${_maincontroller.engineCapacity}",style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal,
+                ),
+                ),
+                SizedBox(height: 10,),
+                Text("${_maincontroller.engineType}",style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal,
+                ),
+                ),
+                SizedBox(height: 10,),
+                Text("${_maincontroller.power}",style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal,
+                ),
+                ),
+                SizedBox(height: 10,),
+                Text("${_maincontroller.year}",style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal,
+                ),
+                ),
+                SizedBox(height: 10,),
+                Image.network(
+                  _maincontroller.imageUrl.toString(),
+                  width: 220.0,
+                  height: 220.0,
+                ),
+                SizedBox(height: 30,),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Game()),
+                    );
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 24.0),
+                    child: Text(
+                      ('Next Car'),
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    minimumSize: Size(60.0, 60.0),
+                    maximumSize: Size(180.0, 60.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                  ),
+                ),
               ],
-            )),
+            ),
           ],
         ),
       ),

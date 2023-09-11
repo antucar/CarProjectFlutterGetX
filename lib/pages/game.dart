@@ -13,6 +13,7 @@ class _GameState extends State<Game> {
   TextEditingController modelController = TextEditingController();
   TextEditingController yearController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -20,18 +21,17 @@ class _GameState extends State<Game> {
   }
 
   void checkAnswer() {
-    final String enteredModel = modelController.text;
-    final String enteredYear = yearController.text;
-    final String correctModel = _maincontroller.model.toString();
-    final String correctYear = _maincontroller.year.toString();
+    final String enteredModel = modelController.text.toLowerCase();
+    final String enteredYear = yearController.text.toLowerCase();
+    final String correctModel = _maincontroller.model.toString().toLowerCase();
+    final String correctYear = _maincontroller.year.toString().toLowerCase();
 
     if (enteredModel == correctModel && enteredYear == correctYear) {
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CarDetail()),
       );
     } else {
-
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -50,29 +50,47 @@ class _GameState extends State<Game> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Brand: ${_maincontroller.brand}"),
-            Image.network(_maincontroller.imageUrl.toString()),
+            Text(
+              "Brand: ${_maincontroller.brand}",
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            SizedBox(height: 10),
+            Image.network(
+                  _maincontroller.imageUrl.toString(),
+                  width: 300.0,
+                  height: 300.0,
+                ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(left: 50.0,right: 50),
               child: TextField(
                 controller: modelController,
                 decoration: InputDecoration(labelText: 'Model'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(left: 50.0,right: 50),
               child: TextField(
                 controller: yearController,
-                decoration: InputDecoration(labelText: 'Year'),
+                decoration: InputDecoration(
+                  labelText: 'Year',
+                  alignLabelWithHint: true,
+                ),
               ),
             ),
+            SizedBox(height: 30),
             ElevatedButton(
               onPressed: checkAnswer,
               child: Container(
